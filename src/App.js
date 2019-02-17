@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import { useFetch } from './hooks'
+import './App.css'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+const API_BASE_URL = 'http://localhost:5000'// 'https://chasemetzger-quotes-game.herokuapp.com'
+
+function App () {
+  const [quote, setQuote] = useState('BLAH')
+  const { loading, result } = useFetch(API_BASE_URL + '/start-game', { game_id: null, quote })
+
+  useEffect(() => {
+    if (!loading) {
+      setQuote(result.quote)
+    }
+  }, [result])
+
+  return (
+    <div className="app">
+      <h2>{quote}</h2>
+      <p>Enter your guess</p>
+      <input type="text" />
+    </div>
+  )
 }
 
-export default App;
+export default App
