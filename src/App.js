@@ -1,17 +1,45 @@
 import React, { useState, useEffect } from 'react'
 import { useFetch } from './hooks'
+
+import posed, { PoseGroup } from 'react-pose'
+
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
-const API_BASE_URL = 'https://chasemetzger-quotes-game.herokuapp.com'
+import GameContext from './context'
+import GameCard from './GameCard'
+const API_BASE_URL = 'http://localhost:5000' // 'https://chasemetzger-quotes-game.herokuapp.com'
+
+const GameCardAnimator = posed.div({
+  enter: {
+    y: 0,
+    transition: {
+      duration: 250,
+      stiffness: 100,
+      type: 'spring',
+      y: {
+        ease: 'easeInOut'
+      }
+    }
+  },
+  exit: {
+    y: '100%',
+    transition: {
+      duration: 250,
+      ease: 'easeInOut'
+    }
+  }
+})
 
 function App () {
   const [quote, setQuote] = useState('BLAH')
   const [gameID, setGameID] = useState('')
   const { loading, result } = useFetch(API_BASE_URL + '/start-game', { game_id: null, quote })
+
   const [currentGuess, setCurrentGuess] = useState({
     text: '',
     isRight: false,
-    message: ''
+    messageFromServer: ''
   })
 
   useEffect(() => {
@@ -21,15 +49,15 @@ function App () {
     }
   }, [result])
 
-  function onGuessChange (event) {
+  function setCurrentGuessText (text) {
     setCurrentGuess({
       ...currentGuess,
-      text: event.target.value
+      text
     })
   }
 
-  function onSubmitGuess () {
-    if (currentGuess.text.trim() !== '') {
+  function onSubmitGuess (guess) {
+    if (guess.trim() !== '') {
       fetch(API_BASE_URL + '/check-guess', {
         method: 'post',
         headers: {
@@ -37,13 +65,13 @@ function App () {
         },
         body: JSON.stringify({
           game_id: gameID,
-          guess: currentGuess.text
+          guess: guess
         })
       })
         .then(response => response.json())
         .then(answer => setCurrentGuess({
           ...currentGuess,
-          message: answer.message,
+          messageFromServer: answer.message,
           isRight: answer.quote !== undefined
         }))
         .catch(console.log)
@@ -65,7 +93,7 @@ function App () {
         setCurrentGuess({
           text: '',
           isRight: false,
-          message: ''
+          messageFromServer: ''
         })
 
         setQuote(data.quote)
@@ -74,13 +102,14 @@ function App () {
   }
 
   return (
-    <div className="app">
-      <h2>{quote}</h2>
-      <p>Enter your guess</p>
-      <input type="text" onChange={onGuessChange} value={currentGuess.text}/>
-      <button onClick={onSubmitGuess}>Guess</button>
-      <h1>{currentGuess.message}</h1>
-      {currentGuess.isRight && <button onClick={restartGame}>Play again?</button>}
+    <div id="app">
+      <GameContext.Provider value={{ currentGuess, quote, setCurrentGuessText, restartGame }}>
+        <PoseGroup animateOnMount={true}>
+          <GameCardAnimator key="game animator">
+            <GameCard onGuess={onSubmitGuess}/>
+          </GameCardAnimator>
+        </PoseGroup>
+      </GameContext.Provider>
     </div>
   )
 }
