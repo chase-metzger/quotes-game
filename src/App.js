@@ -8,8 +8,8 @@ import './App.css'
 
 import GameContext from './context'
 import GameCard from './GameCard'
-const SERVER_BASE_URL = 'http://localhost:5000'
-// const SERVER_BASE_URL = 'https://chasemetzger-quotes-game.herokuapp.com'
+// const SERVER_BASE_URL = 'http://localhost:5000'
+const SERVER_BASE_URL = 'https://chasemetzger-quotes-game.herokuapp.com'
 
 const GameCardAnimator = posed.div({
   enter: {
