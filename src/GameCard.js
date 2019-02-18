@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 
 import Card from 'react-bootstrap/Card'
 import InputGroup from 'react-bootstrap/InputGroup'
@@ -32,6 +32,7 @@ export default function GameCard ({ onGuess, ...rest }) {
             {renderButton()}
           </InputGroup.Append>
         </InputGroup>
+        <Card.Text>{currentGuess.messageFromServer}</Card.Text>
       </Card.Body>
     </Card>
   )
