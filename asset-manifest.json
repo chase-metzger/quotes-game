@@ -1,14 +1,14 @@
 {
   "main.css": "/quotes-game/static/css/main.be6fef30.chunk.css",
-  "main.js": "/quotes-game/static/js/main.0b8cd93b.chunk.js",
-  "main.js.map": "/quotes-game/static/js/main.0b8cd93b.chunk.js.map",
+  "main.js": "/quotes-game/static/js/main.51c9f92a.chunk.js",
+  "main.js.map": "/quotes-game/static/js/main.51c9f92a.chunk.js.map",
   "runtime~main.js": "/quotes-game/static/js/runtime~main.c7fb0f7d.js",
   "runtime~main.js.map": "/quotes-game/static/js/runtime~main.c7fb0f7d.js.map",
   "static/css/2.9c8f27a1.chunk.css": "/quotes-game/static/css/2.9c8f27a1.chunk.css",
   "static/js/2.bfd75f6a.chunk.js": "/quotes-game/static/js/2.bfd75f6a.chunk.js",
   "static/js/2.bfd75f6a.chunk.js.map": "/quotes-game/static/js/2.bfd75f6a.chunk.js.map",
   "index.html": "/quotes-game/index.html",
-  "precache-manifest.1016a3ae530eb7066363e38e9d722c82.js": "/quotes-game/precache-manifest.1016a3ae530eb7066363e38e9d722c82.js",
+  "precache-manifest.e0718d27be89f70b1c65ca7c5f7a3522.js": "/quotes-game/precache-manifest.e0718d27be89f70b1c65ca7c5f7a3522.js",
   "service-worker.js": "/quotes-game/service-worker.js",
   "static/css/2.9c8f27a1.chunk.css.map": "/quotes-game/static/css/2.9c8f27a1.chunk.css.map",
   "static/css/main.be6fef30.chunk.css.map": "/quotes-game/static/css/main.be6fef30.chunk.css.map"
