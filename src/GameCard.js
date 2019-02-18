@@ -8,14 +8,23 @@ import FormControl from 'react-bootstrap/Form'
 import GameContext from './context'
 
 export default function GameCard ({ onGuess, ...rest }) {
-  const { quote, currentGuess, remainingGuesses, setCurrentGuessText, restartGame } = useContext(GameContext)
+  const { quote, currentGuess, correctAnswer, remainingGuesses, setCurrentGuessText, restartGame } = useContext(GameContext)
 
   function renderButton () {
+    let btnVariant = 'primary'
+    let onClick = () => onGuess(currentGuess.text)
+    let btnText = 'Guess'
     if (currentGuess.isRight) {
-      return <Button variant="success" onClick={restartGame}>Play again?</Button>
-    } else {
-      return <Button variant="primary" onClick={() => onGuess(currentGuess.text)}>Guess</Button>
+      btnVariant = 'success'
+      onClick = restartGame
+      btnText = 'Play again?'
+    } else if (correctAnswer) {
+      btnVariant = 'danger'
+      onClick = restartGame
+      btnText = 'Play again?'
     }
+
+    return <Button variant={btnVariant} onClick={onClick}>{btnText}</Button>
   }
 
   return (
@@ -33,7 +42,7 @@ export default function GameCard ({ onGuess, ...rest }) {
           </InputGroup.Append>
         </InputGroup>
         <Card.Text>{currentGuess.messageFromServer}</Card.Text>
-        <Card.Text>Remaining guesses: {remainingGuesses}</Card.Text>
+        {(remainingGuesses > 0) && <Card.Text>Remaining guesses: {remainingGuesses}</Card.Text>}
       </Card.Body>
     </Card>
   )

@@ -8,6 +8,7 @@ import './App.css'
 
 import GameContext from './context'
 import GameCard from './GameCard'
+import CorrectAnswer from './CorrectAnswer'
 // const SERVER_BASE_URL = 'http://localhost:5000'
 const SERVER_BASE_URL = 'https://chasemetzger-quotes-game.herokuapp.com'
 
@@ -36,6 +37,7 @@ function App () {
   const [quote, setQuote] = useState('BLAH')
   const [gameID, setGameID] = useState('')
   const [remainingGuesses, setRemainingGuesses] = useState(0)
+  const [correctAnswer, setCorrectAnswer] = useState(null)
   const { loading, result } = useFetch(SERVER_BASE_URL + '/start-game', { game_id: null, quote })
 
   const [currentGuess, setCurrentGuess] = useState({
@@ -63,9 +65,12 @@ function App () {
     setCurrentGuess({
       ...currentGuess,
       messageFromServer: answer.message,
-      isRight: answer.quote !== undefined
+      isRight: answer.is_right
     })
     setRemainingGuesses(answer.remaining_guesses)
+    if (answer.correct_answer) {
+      setCorrectAnswer(answer.correct_answer)
+    }
   }
 
   function onSubmitGuess (guess) {
@@ -105,18 +110,20 @@ function App () {
         })
 
         setQuote(data.quote)
+        setCorrectAnswer(null)
       })
       .catch(console.log)
   }
 
   return (
     <div id="app">
-      <GameContext.Provider value={{ currentGuess, quote, remainingGuesses, setCurrentGuessText, restartGame }}>
+      <GameContext.Provider value={{ currentGuess, correctAnswer, quote, remainingGuesses, setCurrentGuessText, restartGame }}>
         <PoseGroup animateOnMount={true}>
           <GameCardAnimator key="game animator">
             <GameCard onGuess={onSubmitGuess}/>
           </GameCardAnimator>
         </PoseGroup>
+        {correctAnswer && <CorrectAnswer quote={correctAnswer} />}
       </GameContext.Provider>
     </div>
   )
