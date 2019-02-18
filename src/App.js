@@ -8,7 +8,8 @@ import './App.css'
 
 import GameContext from './context'
 import GameCard from './GameCard'
-const API_BASE_URL = 'http://localhost:5000' // 'https://chasemetzger-quotes-game.herokuapp.com'
+// const SERVER_BASE_URL = 'http://localhost:5000' // 'https://chasemetzger-quotes-game.herokuapp.com'
+const SERVER_BASE_URL = 'https://chasemetzger-quotes-game.herokuapp.com'
 
 const GameCardAnimator = posed.div({
   enter: {
@@ -34,7 +35,7 @@ const GameCardAnimator = posed.div({
 function App () {
   const [quote, setQuote] = useState('BLAH')
   const [gameID, setGameID] = useState('')
-  const { loading, result } = useFetch(API_BASE_URL + '/start-game', { game_id: null, quote })
+  const { loading, result } = useFetch(SERVER_BASE_URL + '/start-game', { game_id: null, quote })
 
   const [currentGuess, setCurrentGuess] = useState({
     text: '',
@@ -58,7 +59,7 @@ function App () {
 
   function onSubmitGuess (guess) {
     if (guess.trim() !== '') {
-      fetch(API_BASE_URL + '/check-guess', {
+      fetch(SERVER_BASE_URL + '/check-guess', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -79,7 +80,7 @@ function App () {
   }
 
   function restartGame () {
-    fetch(API_BASE_URL + '/start-game', {
+    fetch(SERVER_BASE_URL + '/start-game', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
