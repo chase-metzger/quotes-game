@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Button from 'react-bootstrap/Button'
 import FormControl from 'react-bootstrap/Form'
+import Alert from 'react-bootstrap/Alert'
 
 import GameContext from './context'
 
@@ -41,7 +42,7 @@ export default function GameCard ({ onGuess, ...rest }) {
             {renderButton()}
           </InputGroup.Append>
         </InputGroup>
-        <Card.Text>{currentGuess.messageFromServer}</Card.Text>
+        {currentGuess.messageFromServer && <Alert variant={currentGuess.isRight ? 'success' : 'danger'}>{currentGuess.messageFromServer}</Alert>}
         {(remainingGuesses > 0) && <Card.Text>Remaining guesses: {remainingGuesses}</Card.Text>}
       </Card.Body>
     </Card>
