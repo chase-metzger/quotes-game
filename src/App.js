@@ -8,8 +8,8 @@ import './App.css'
 
 import GameContext from './context'
 import GameCard from './GameCard'
-// const SERVER_BASE_URL = 'http://localhost:5000' // 'https://chasemetzger-quotes-game.herokuapp.com'
-const SERVER_BASE_URL = 'https://chasemetzger-quotes-game.herokuapp.com'
+const SERVER_BASE_URL = 'http://localhost:5000'
+// const SERVER_BASE_URL = 'https://chasemetzger-quotes-game.herokuapp.com'
 
 const GameCardAnimator = posed.div({
   enter: {
@@ -35,6 +35,7 @@ const GameCardAnimator = posed.div({
 function App () {
   const [quote, setQuote] = useState('BLAH')
   const [gameID, setGameID] = useState('')
+  const [remainingGuesses, setRemainingGuesses] = useState(0)
   const { loading, result } = useFetch(SERVER_BASE_URL + '/start-game', { game_id: null, quote })
 
   const [currentGuess, setCurrentGuess] = useState({
@@ -47,6 +48,7 @@ function App () {
     if (!loading) {
       setQuote(result.quote)
       setGameID(result.game_id)
+      setRemainingGuesses(result.remaining_guesses)
     }
   }, [result])
 
@@ -55,6 +57,15 @@ function App () {
       ...currentGuess,
       text
     })
+  }
+
+  function updateStateFromGuessAnswer (answer) {
+    setCurrentGuess({
+      ...currentGuess,
+      messageFromServer: answer.message,
+      isRight: answer.quote !== undefined
+    })
+    setRemainingGuesses(answer.remaining_guesses)
   }
 
   function onSubmitGuess (guess) {
@@ -66,15 +77,11 @@ function App () {
         },
         body: JSON.stringify({
           game_id: gameID,
-          guess: guess
+          guess
         })
       })
         .then(response => response.json())
-        .then(answer => setCurrentGuess({
-          ...currentGuess,
-          messageFromServer: answer.message,
-          isRight: answer.quote !== undefined
-        }))
+        .then(updateStateFromGuessAnswer)
         .catch(console.log)
     }
   }
@@ -104,7 +111,7 @@ function App () {
 
   return (
     <div id="app">
-      <GameContext.Provider value={{ currentGuess, quote, setCurrentGuessText, restartGame }}>
+      <GameContext.Provider value={{ currentGuess, quote, remainingGuesses, setCurrentGuessText, restartGame }}>
         <PoseGroup animateOnMount={true}>
           <GameCardAnimator key="game animator">
             <GameCard onGuess={onSubmitGuess}/>

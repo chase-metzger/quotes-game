@@ -8,7 +8,7 @@ import FormControl from 'react-bootstrap/Form'
 import GameContext from './context'
 
 export default function GameCard ({ onGuess, ...rest }) {
-  const { quote, currentGuess, setCurrentGuessText, restartGame } = useContext(GameContext)
+  const { quote, currentGuess, remainingGuesses, setCurrentGuessText, restartGame } = useContext(GameContext)
 
   function renderButton () {
     if (currentGuess.isRight) {
@@ -33,6 +33,7 @@ export default function GameCard ({ onGuess, ...rest }) {
           </InputGroup.Append>
         </InputGroup>
         <Card.Text>{currentGuess.messageFromServer}</Card.Text>
+        <Card.Text>Remaining guesses: {remainingGuesses}</Card.Text>
       </Card.Body>
     </Card>
   )

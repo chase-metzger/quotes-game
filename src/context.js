@@ -6,7 +6,8 @@ const GameContext = React.createContext({
     isRight: false,
     messageFromServer: ''
   },
-  quote: ''
+  quote: '',
+  remainingGuesses: 0
 })
 
 export default GameContext
