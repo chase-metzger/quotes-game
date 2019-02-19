@@ -65,7 +65,8 @@ function App () {
     setCurrentGuess({
       ...currentGuess,
       messageFromServer: answer.message,
-      isRight: answer.is_right
+      isRight: answer.is_right,
+      text: ''
     })
     setRemainingGuesses(answer.remaining_guesses)
     if (answer.correct_answer) {

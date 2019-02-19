@@ -37,7 +37,7 @@ export default function GameCard ({ onGuess, ...rest }) {
           {quote}
         </Card.Text>
         <InputGroup size="sm" className="mb-3 mx-auto">
-          <FormControl as="input" aria-label="Guess input" onChange={(event) => setCurrentGuessText(event.target.value)} />
+          <FormControl value={currentGuess.text} as="input" aria-label="Guess input" onChange={(event) => setCurrentGuessText(event.target.value)} />
           <InputGroup.Append>
             {renderButton()}
           </InputGroup.Append>
