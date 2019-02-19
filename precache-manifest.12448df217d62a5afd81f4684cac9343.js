@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "5f6612a8986bdaa3c818",
+    "revision": "45c0f4abe2498f563eed",
     "url": "/quotes-game/static/css/main.be6fef30.chunk.css"
   },
   {
-    "revision": "5f6612a8986bdaa3c818",
-    "url": "/quotes-game/static/js/main.5f6612a8.chunk.js"
+    "revision": "45c0f4abe2498f563eed",
+    "url": "/quotes-game/static/js/main.45c0f4ab.chunk.js"
   },
   {
     "revision": "c7fb0f7de076ef92cfea",
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/quotes-game/static/js/2.1b44880e.chunk.js"
   },
   {
-    "revision": "680d102f359cbcadba8ac936d09cde0b",
+    "revision": "193da5c0002c77a7ef2cea7a9185f998",
     "url": "/quotes-game/index.html"
   }
 ];
