@@ -111,6 +111,7 @@ function App () {
         })
 
         setQuote(data.quote)
+        setRemainingGuesses(data.remaining_guesses)
         setCorrectAnswer(null)
       })
       .catch(console.log)
