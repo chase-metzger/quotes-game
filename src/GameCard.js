@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useEffect, useRef, useContext } from 'react'
 
 import Card from 'react-bootstrap/Card'
 import InputGroup from 'react-bootstrap/InputGroup'
@@ -10,6 +10,21 @@ import GameContext from './context'
 
 export default function GameCard ({ onGuess, ...rest }) {
   const { quote, currentGuess, correctAnswer, remainingGuesses, setCurrentGuessText, restartGame } = useContext(GameContext)
+  let guessInputRef = useRef(null)
+
+  useEffect(() => {
+    const onEnterPress = (event) => {
+      event.preventDefault()
+      if (event.keyCode === 13 && currentGuess.text.trim() !== '') {
+        onGuess(currentGuess.text)
+        guessInputRef.current.focus()
+      }
+    }
+
+    guessInputRef.current.addEventListener('keyup', onEnterPress)
+
+    return () => guessInputRef.current.removeEventListener('keyup', onEnterPress)
+  })
 
   function renderButton () {
     let btnVariant = 'primary'
@@ -37,7 +52,7 @@ export default function GameCard ({ onGuess, ...rest }) {
           {quote}
         </Card.Text>
         <InputGroup size="sm" className="mb-3 mx-auto">
-          <FormControl value={currentGuess.text} as="input" aria-label="Guess input" onChange={(event) => setCurrentGuessText(event.target.value)} />
+          <FormControl placeholder="Enter guess..." ref={guessInputRef} value={currentGuess.text} as="input" aria-label="Guess input" onChange={(event) => setCurrentGuessText(event.target.value)} />
           <InputGroup.Append>
             {renderButton()}
           </InputGroup.Append>
