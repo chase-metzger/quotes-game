@@ -40,10 +40,29 @@ const useLocalStorage = (key, initialValue) => {
 
   const setValue = value => {
     setInnerValue(value)
-    window.localStorage.setItem(key, JSON.stringify(item))
+    window.localStorage.setItem(key, JSON.stringify(value))
   }
 
   return [item, setValue]
 }
 
-export { useFetch, useLocalStorage }
+const useSessionStorage = (key, initialValue) => {
+  const [item, setInnerValue] = useState(() => {
+    try {
+      const item = window.sessionStorage.getItem(key)
+      return (item !== null && item !== undefined ? JSON.parse(item) : initialValue)
+    } catch (error) {
+      return error
+    }
+  })
+
+  const setValue = value => {
+    setInnerValue(value)
+    console.log(value)
+    window.sessionStorage.setItem(key, JSON.stringify(value))
+  }
+
+  return [item, setValue]
+}
+
+export { useFetch, useLocalStorage, useSessionStorage }
