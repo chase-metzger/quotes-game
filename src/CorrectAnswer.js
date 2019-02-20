@@ -8,7 +8,7 @@ export default function CorrectAnswer ({ quote }) {
       <Card.Body>
         <Jumbotron>
           <h1>The answer was {quote.author}</h1>
-          <p>Learn more about this person: {quote['bio-link']}</p>
+          <p>Learn more about this person: <a href={quote['bio-link']} rel="noopener noreferrer" target="_blank">{quote['bio-link']}</a></p>
         </Jumbotron>
       </Card.Body>
     </Card>
