@@ -58,7 +58,6 @@ const useSessionStorage = (key, initialValue) => {
 
   const setValue = value => {
     setInnerValue(value)
-    console.log(value)
     window.sessionStorage.setItem(key, JSON.stringify(value))
   }
 
