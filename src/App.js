@@ -34,7 +34,7 @@ const GameCardAnimator = posed.div({
 })
 
 function App () {
-  const [quote, setQuote] = useState('BLAH')
+  const [quote, setQuote] = useState('Loading...')
   const [gameID, setGameID] = useSessionStorage('gameID', null)
   const [remainingGuesses, setRemainingGuesses] = useState(0)
   const [correctAnswer, setCorrectAnswer] = useState(null)
@@ -107,7 +107,7 @@ function App () {
         setCurrentGuess({
           text: '',
           isRight: false,
-          messageFromServer: ''
+          messageFromServer: data.message
         })
 
         setQuote(data.quote)
