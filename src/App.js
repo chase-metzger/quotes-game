@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useFetch } from './hooks'
+import { useFetch, useSessionStorage } from './hooks'
 
 import posed, { PoseGroup } from 'react-pose'
 
@@ -13,7 +13,7 @@ import CorrectAnswer from './CorrectAnswer'
 const SERVER_BASE_URL = 'https://chasemetzger-quotes-game.herokuapp.com'
 
 const GameCardAnimator = posed.div({
-  enter: {
+ enter: {
     y: 0,
     transition: {
       duration: 250,
@@ -35,7 +35,7 @@ const GameCardAnimator = posed.div({
 
 function App () {
   const [quote, setQuote] = useState('BLAH')
-  const [gameID, setGameID] = useState('')
+  const [gameID, setGameID] = useSessionStorage('gameID', null)
   const [remainingGuesses, setRemainingGuesses] = useState(0)
   const [correctAnswer, setCorrectAnswer] = useState(null)
   const { loading, result } = useFetch(SERVER_BASE_URL + '/start-game', { game_id: null, quote })
