@@ -2,7 +2,7 @@
   "name": "quotes-game",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://chase-metzger.github.io/quotes-game",
+  "homepage": "https://gifted-mestorf-074f23.netlify.com",
   "dependencies": {
     "bootstrap": "4.3.1",
     "react": "16.8.6",
